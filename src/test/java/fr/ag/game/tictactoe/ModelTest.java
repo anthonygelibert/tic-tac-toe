@@ -24,9 +24,13 @@ public final class ModelTest
         Assert.assertEquals("Empty model", 0, model.getCurrentState());
     }
 
-    /** Test the winner detection for all the lines. */
+    /**
+     * Test the winner detection for all the lines.
+     *
+     * @throws AlreadyPlayedException Normally not thrown
+     */
     @Test
-    public void testCheckAllTheLines()
+    public void testCheckAllTheLines() throws AlreadyPlayedException
     {
         final TicTacToeModel model = new TicTacToeModel();
         model.play(0, 0, 1);
@@ -45,9 +49,13 @@ public final class ModelTest
         Assert.assertEquals("Check line 2", 1, model.getCurrentState());
     }
 
-    /** Test the winner detection for all the columns. */
+    /**
+     * Test the winner detection for all the columns.
+     *
+     * @throws AlreadyPlayedException Normally not thrown
+     */
     @Test
-    public void testCheckAllTheColumns()
+    public void testCheckAllTheColumns() throws AlreadyPlayedException
     {
         final TicTacToeModel model = new TicTacToeModel();
         model.play(0, 0, 1);
@@ -66,9 +74,13 @@ public final class ModelTest
         Assert.assertEquals("Check column 2", 1, model.getCurrentState());
     }
 
-    /** Test the winner detection for all the diags. */
+    /**
+     * Test the winner detection for all the diags.
+     *
+     * @throws AlreadyPlayedException Normally not thrown
+     */
     @Test
-    public void testCheckAllTheDiag()
+    public void testCheckAllTheDiag() throws AlreadyPlayedException
     {
         final TicTacToeModel model = new TicTacToeModel();
         model.play(0, 0, 1);

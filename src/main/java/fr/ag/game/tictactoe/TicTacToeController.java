@@ -26,69 +26,79 @@
  ******************************************************************************/
 package fr.ag.game.tictactoe;
 
-import javax.swing.JButton;
 import javax.swing.JOptionPane;
+import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ResourceBundle;
 
 /**
  * Simple class permitting to play parties.
  *
  * @author Anthony GELIBERT
- * @version 1.0.0
+ * @version 1.0.1
  */
 final class TicTacToeController implements ActionListener
 {
+    /** Resource bundle. */
+    private static final ResourceBundle RESOURCE_BUNDLE = ResourceBundle.getBundle("text"); /* NON-NLS */
     /** Model. */
-    private final TicTacToeModel m_model;
+    private final TicTacToeModel m_toeModel;
     /** View. */
-    private final TicTacToeView m_view;
+    private final TicTacToeView  m_view;
     /** Current player. */
     private int m_current = -1;
 
-    /**
-     * Create a new party with the player names.
-     */
+    /** Create a new party with the player names. */
     TicTacToeController()
     {
-        m_model = new TicTacToeModel();
-        m_view = new TicTacToeView(m_model, this);
+        m_toeModel = new TicTacToeModel();
+        m_view = new TicTacToeView(m_toeModel, this);
     }
 
     @Override
     public void actionPerformed(final ActionEvent e)
     {
         /* Translate JButton to (x,y) */
-        final JButton source = (JButton) e.getSource();
-        final String name = source.getName();
+        final String name = ((Component) e.getSource()).getName();
         final int i = Character.getNumericValue(name.charAt(0));
         final int j = Character.getNumericValue(name.charAt(3));
 
-        if (m_model.play(i, j, m_current))
+        try
         {
-            m_current = -m_current;
-            m_view.refresh();
-            if (m_model.getCurrentState() != 0)
+            m_toeModel.play(i, j, m_current);
+        }
+        catch (AlreadyPlayedException ignore)
+        {
+            return;
+        }
+
+        m_current = -m_current;
+        m_view.refresh();
+        if (m_toeModel.getCurrentState() != 0)
+        {
+            final int answer = JOptionPane.showConfirmDialog(null, (m_current == -1) ? RESOURCE_BUNDLE.getString("Victoire1") : RESOURCE_BUNDLE.getString("Victoire2"), RESOURCE_BUNDLE.getString("Recommencer"), JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+            if (answer == JOptionPane.YES_OPTION)
             {
-                final int answer = JOptionPane.showConfirmDialog(null, "Voulez vous rejouer ?", "Encore une partie ?", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
-                if (answer == JOptionPane.YES_OPTION)
-                {
-                    m_view.clear();
-                    m_model.clear();
-                    m_current = -1;
-                }
+                m_view.clear();
+                m_toeModel.clear();
+                m_current = -1;
+            }
+            else
+            {
+                m_view.exit();
             }
         }
+
     }
 
     @Override
     public String toString()
     {
-        final StringBuilder sb = new StringBuilder(50);
-        sb.append("TicTacToeController");
-        sb.append("{m_model=").append(m_model);
-        sb.append(", m_view=").append(m_view);
-        sb.append(", m_current=").append(m_current);
+        final StringBuilder sb = new StringBuilder("TicTacToeController"); /* NON-NLS */
+        sb.append("{m_toeModel=").append(m_toeModel); /* NON-NLS */
+        sb.append(", m_view=").append(m_view); /* NON-NLS */
+        sb.append(", m_current=").append(m_current); /* NON-NLS */
         sb.append('}');
         return sb.toString();
     }

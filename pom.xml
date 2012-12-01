@@ -12,7 +12,7 @@
     <packaging>jar</packaging>
     <groupId>fr.ag</groupId>
     <artifactId>game.tictactoe</artifactId>
-    <version>1.0.1-SNAPSHOT</version>
+    <version>1.0.1</version>
     <name>Anthony Gelibert :: Game :: Tic-Tac-Toe</name>
     <description>A simple implementation of the classic tic-tac-toe game.</description>
     <inceptionYear>2012</inceptionYear>

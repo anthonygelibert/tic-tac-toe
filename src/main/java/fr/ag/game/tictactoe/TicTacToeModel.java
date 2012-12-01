@@ -41,20 +41,18 @@ final class TicTacToeModel
     private static final int BOARD_HEIGHT = 4; // Real size is 3
     /** Weight of the board. */
     private static final int BOARD_WEIGHT = 5; // Real size is 3
-
     /** Board. */
     private int[][] m_board;
     /** Turn. */
     private int     m_turn;
     /** Winner. */
     private int     m_winner;
-
     /** Last play : X. */
-    private int m_lastX;
+    private int     m_lastX;
     /** Last play : Y. */
-    private int m_lastY;
+    private int     m_lastY;
     /** Last play : player. */
-    private int m_lastPlayer;
+    private int     m_lastPlayer;
 
     /** Create an empty board. */
     TicTacToeModel()
@@ -71,18 +69,22 @@ final class TicTacToeModel
     }
 
     /**
+     * <i>player</i> put a piece on <i>(x,y)</i>.
+     *
      * @param x      [0 <= x <= 2]
      * @param y      [0 <= y <= 2]
      * @param player [1 | -1]
-     *
-     * @return Done.
      */
-    public boolean play(final int x, final int y, final int player)
+    public void play(final int x, final int y, final int player) throws AlreadyPlayedException
     {
+        assert (x >= 0) && (x <= 2) : "(" + x + ") -> 0 <= x <= 2";
+        assert (y >= 0) && (y <= 2) : "(" + y + ") -> 0 <= y <= 2";
+        assert (player == -1) || (player == 1) : "(" + player + ") player = [-1 | 1]";
+
         /* Don't to two times the same play. */
         if (m_board[x + 1][y + 1] != 0)
         {
-            return false;
+            throw new AlreadyPlayedException(player + " already made this move..."); /* NON-NLS */
         }
 
         /* Keep info */
@@ -116,8 +118,6 @@ final class TicTacToeModel
         {
             m_winner = player;
         }
-        /* OK. */
-        return true;
     }
 
     /**
@@ -161,14 +161,13 @@ final class TicTacToeModel
     @Override
     public String toString()
     {
-        final StringBuilder sb = new StringBuilder(80);
-        sb.append("TicTacToeModel");
-        sb.append("{m_board=").append(m_board == null ? "null" : Arrays.asList(m_board).toString());
-        sb.append(", m_turn=").append(m_turn);
-        sb.append(", m_winner=").append(m_winner);
-        sb.append(", m_lastX=").append(m_lastX);
-        sb.append(", m_lastY=").append(m_lastY);
-        sb.append(", m_lastPlayer=").append(m_lastPlayer);
+        final StringBuilder sb = new StringBuilder("TicTacToeModel"); /* NON-NLS */
+        sb.append("{m_board=").append((m_board == null) ? "null" : Arrays.asList(m_board).toString()); /* NON-NLS */
+        sb.append(", m_turn=").append(m_turn); /* NON-NLS */
+        sb.append(", m_winner=").append(m_winner); /* NON-NLS */
+        sb.append(", m_lastX=").append(m_lastX); /* NON-NLS */
+        sb.append(", m_lastY=").append(m_lastY); /* NON-NLS */
+        sb.append(", m_lastPlayer=").append(m_lastPlayer); /* NON-NLS */
         sb.append('}');
         return sb.toString();
     }

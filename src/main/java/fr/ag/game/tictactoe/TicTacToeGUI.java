@@ -32,11 +32,12 @@ package fr.ag.game.tictactoe;
  * @author Anthony GELIBERT
  * @version 1.0.0
  */
-public class TicTacToeGUI
+public final class TicTacToeGUI
 {
     /** @param args Not used. */
-    public static void main(final String[] args)
+    public static void main(final String... args)
     {
+        @SuppressWarnings("unused")
         final TicTacToeController mc = new TicTacToeController();
     }
 }
