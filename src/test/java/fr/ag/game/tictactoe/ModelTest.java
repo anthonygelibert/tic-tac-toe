@@ -1,3 +1,8 @@
+/******************************************************************************
+ * Copyright (c) 2012, Nocosium.                                              *
+ * All rights reserved.                                                       *
+ ******************************************************************************/
+
 package fr.ag.game.tictactoe;
 
 import org.junit.Assert;
@@ -9,11 +14,9 @@ import org.junit.Test;
  * @author Anthony GELIBERT
  * @version 1.0.0
  */
-public final class TicTacToeModelTest
+public final class ModelTest
 {
-    /**
-     * Test an empty model.
-     */
+    /** Test an empty model. */
     @Test
     public void testEmptyModel()
     {
@@ -21,9 +24,7 @@ public final class TicTacToeModelTest
         Assert.assertEquals("Empty model", 0, model.getCurrentState());
     }
 
-    /**
-     * Test the winner detection for all the lines.
-     */
+    /** Test the winner detection for all the lines. */
     @Test
     public void testCheckAllTheLines()
     {
@@ -44,11 +45,9 @@ public final class TicTacToeModelTest
         Assert.assertEquals("Check line 2", 1, model.getCurrentState());
     }
 
-    /**
-     * Test the winner detection for all the columns.
-     */
+    /** Test the winner detection for all the columns. */
     @Test
-    public void testCheckAllTheColumns() throws Exception
+    public void testCheckAllTheColumns()
     {
         final TicTacToeModel model = new TicTacToeModel();
         model.play(0, 0, 1);
@@ -67,11 +66,9 @@ public final class TicTacToeModelTest
         Assert.assertEquals("Check column 2", 1, model.getCurrentState());
     }
 
-    /**
-     * Test the winner detection for all the diags.
-     */
+    /** Test the winner detection for all the diags. */
     @Test
-    public void testCheckAllTheDiag() throws Exception
+    public void testCheckAllTheDiag()
     {
         final TicTacToeModel model = new TicTacToeModel();
         model.play(0, 0, 1);
